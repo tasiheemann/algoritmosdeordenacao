@@ -1,0 +1,85 @@
+Atividade Prática de Insertion Sort em C#
+Esta atividade desafia os alunos a implementar o algoritmo Insertion Sort em C#, concentrando-se na lógica de "inserir" o elemento na sua posição correta dentro da porção já ordenada do array.
+
+O Desafio: Implementar e Contar Deslocamentos
+1. Objetivo
+Criar um programa em C# que implemente a função de ordenação Insertion Sort para ordenar um array de inteiros. Para medir a eficiência deste algoritmo, o aluno deve registrar o número de deslocamentos (shifts) que ocorrem durante o processo.
+
+Deslocamento (Shift): Uma operação de deslocamento ocorre quando você move um elemento para a direita para abrir espaço para a inserção do elemento chave (ex: arr[j] = arr[j-1];).
+
+2. Código Base (Ponto de Partida)
+Forneça aos alunos o seguinte código base. Eles devem preencher a lógica dentro do método InsertionSort:
+
+C#
+
+using System;
+
+public class InsertionSortAtividade
+{
+    public static void Main(string[] args)
+    {
+        int[] meuArray = { 12, 11, 13, 5, 6 };
+        int deslocamentos = 0;
+
+        Console.WriteLine("Array Original: " + string.Join(", ", meuArray));
+
+        // CHAME A FUNÇÃO AQUI e capture o número de deslocamentos
+        meuArray = InsertionSort(meuArray, out deslocamentos); 
+
+        Console.WriteLine("Array Ordenado: " + string.Join(", ", meuArray));
+        Console.WriteLine($"Total de Deslocamentos Realizados: {deslocamentos}");
+    }
+
+    /// <summary>
+    /// Ordena um array de inteiros usando o algoritmo Insertion Sort.
+    /// </summary>
+    /// <param name="arr">O array a ser ordenado.</param>
+    /// <param name="deslocamentos">Variável para retornar o número total de deslocamentos.</param>
+    /// <returns>O array ordenado.</returns>
+    public static int[] InsertionSort(int[] arr, out int deslocamentos)
+    {
+        int n = arr.Length;
+        deslocamentos = 0;
+
+        // Loop Externo: Percorre o array a partir do segundo elemento (i=1)
+        for (int i = 1; i < n; ++i)
+        {
+            // O elemento a ser inserido na porção ordenada
+            int key = arr[i];
+            int j = i - 1;
+
+            // Loop Interno: Desloca os elementos da porção ordenada que são 
+            // maiores que 'key' para uma posição à direita.
+            // PREENCHA A LÓGICA DESTE LOOP AQUI
+            
+            
+            // Coloca a chave (key) em sua posição correta
+            // PREENCHA A LÓGICA DE INSERÇÃO AQUI
+            
+        }
+
+        return arr;
+    }
+}
+3. Complete a lógica dentro do método InsertionSort:
+
+A. Implementação do Loop Interno (Deslocamento)
+O loop interno (while (j >= 0 && arr[j] > key)) deve:
+
+Mover o elemento arr[j] uma posição para a direita (arr[j + 1] = arr[j]).
+
+Importante: Incrementar a variável deslocamentos a cada vez que o elemento for movido.
+
+Decrementar o índice j para checar o próximo elemento à esquerda.
+
+B. Implementação da Inserção
+Após o loop while terminar, o índice j + 1 será a posição correta onde o valor de key (o elemento original arr[i]) deve ser inserido.
+
+C. Análise
+Após rodar o programa com o array de teste { 12, 11, 13, 5, 6 }, responda:
+
+Qual é o resultado final do Array Ordenado?
+
+Qual é o Total de Deslocamentos Realizados?
+
+Se o array inicial fosse { 1, 2, 3, 4, 5 } (já ordenado), quantos deslocamentos o seu programa faria? Por quê?
