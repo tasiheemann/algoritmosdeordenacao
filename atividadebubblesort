@@ -1,85 +1,98 @@
-Atividade Prática de Insertion Sort em C#
-Esta atividade desafia os alunos a implementar o algoritmo Insertion Sort em C#, concentrando-se na lógica de "inserir" o elemento na sua posição correta dentro da porção já ordenada do array.
+Atividade Prática de Bubble Sort em C#
+Este exercício demonstra o algoritmo Bubble Sort para ordenar uma lista de números inteiros em ordem crescente.
 
-O Desafio: Implementar e Contar Deslocamentos
-1. Objetivo
-Criar um programa em C# que implemente a função de ordenação Insertion Sort para ordenar um array de inteiros. Para medir a eficiência deste algoritmo, o aluno deve registrar o número de deslocamentos (shifts) que ocorrem durante o processo.
-
-Deslocamento (Shift): Uma operação de deslocamento ocorre quando você move um elemento para a direita para abrir espaço para a inserção do elemento chave (ex: arr[j] = arr[j-1];).
-
-2. Código Base (Ponto de Partida)
-Forneça aos alunos o seguinte código base. Eles devem preencher a lógica dentro do método InsertionSort:
+1. O Código da Função BubbleSort
+O algoritmo usa dois loops aninhados (for). O loop externo controla o número de passagens, e o loop interno realiza as comparações e trocas.
 
 C#
 
 using System;
+using System.Linq;
 
-public class InsertionSortAtividade
+public class AlgoritmosDeOrdenacao
 {
+    // Função que implementa o algoritmo Bubble Sort para ordem crescente
+    public static void BubbleSort(int[] array)
+    {
+        int n = array.Length;
+
+        // Loop externo: Controla o número de 'passagens'
+        // A cada passagem, o maior elemento "borbulha" para a posição correta no final.
+        for (int i = 0; i < n - 1; i++)
+        {
+            // Loop interno: Percorre o array comparando elementos adjacentes.
+            // O '- i - 1' é para ignorar os elementos que já estão ordenados no final.
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                // Condição de Comparação:
+                // Se o elemento atual (array[j]) for MAIOR que o próximo (array[j+1]),
+                // eles estão fora de ordem para uma ordenação crescente.
+                if (array[j] > array[j + 1])
+                {
+                    // Realizar a TROCA (Swap) usando uma variável temporária
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+
+                    // Opcional: Adicionar um Console.WriteLine para mostrar o array após cada troca,
+                    // ajudando a visualizar o processo.
+                    // Console.WriteLine($"Troca: {string.Join(", ", array)}");
+                }
+            }
+            // Opcional: Adicionar um Console.WriteLine para marcar o fim da passagem.
+            // Console.WriteLine($"--- Fim da Passagem {i + 1} ---");
+        }
+    }
+
+    // Função auxiliar para exibir o array
+    public static void ImprimirArray(int[] array)
+    {
+        Console.WriteLine(string.Join(", ", array));
+    }
+
     public static void Main(string[] args)
     {
-        int[] meuArray = { 12, 11, 13, 5, 6 };
-        int deslocamentos = 0;
+        // --- Teste 1: Um array pequeno e desordenado ---
+        int[] lista1 = { 5, 1, 4, 2, 8 };
+        Console.WriteLine("Lista Original 1: ");
+        ImprimirArray(lista1);
 
-        Console.WriteLine("Array Original: " + string.Join(", ", meuArray));
+        BubbleSort(lista1);
 
-        // CHAME A FUNÇÃO AQUI e capture o número de deslocamentos
-        meuArray = InsertionSort(meuArray, out deslocamentos); 
+        Console.WriteLine("\nLista Ordenada 1 (Crescente): ");
+        ImprimirArray(lista1); // Saída esperada: 1, 2, 4, 5, 8
 
-        Console.WriteLine("Array Ordenado: " + string.Join(", ", meuArray));
-        Console.WriteLine($"Total de Deslocamentos Realizados: {deslocamentos}");
-    }
+        Console.WriteLine("------------------------------");
 
-    /// <summary>
-    /// Ordena um array de inteiros usando o algoritmo Insertion Sort.
-    /// </summary>
-    /// <param name="arr">O array a ser ordenado.</param>
-    /// <param name="deslocamentos">Variável para retornar o número total de deslocamentos.</param>
-    /// <returns>O array ordenado.</returns>
-    public static int[] InsertionSort(int[] arr, out int deslocamentos)
-    {
-        int n = arr.Length;
-        deslocamentos = 0;
+        // --- Teste 2: Um array maior com números repetidos ---
+        int[] lista2 = { 77, 4, 1, 15, 4, 9, 23 };
+        Console.WriteLine("Lista Original 2: ");
+        ImprimirArray(lista2);
 
-        // Loop Externo: Percorre o array a partir do segundo elemento (i=1)
-        for (int i = 1; i < n; ++i)
-        {
-            // O elemento a ser inserido na porção ordenada
-            int key = arr[i];
-            int j = i - 1;
+        BubbleSort(lista2);
 
-            // Loop Interno: Desloca os elementos da porção ordenada que são 
-            // maiores que 'key' para uma posição à direita.
-            // PREENCHA A LÓGICA DESTE LOOP AQUI
-            
-            
-            // Coloca a chave (key) em sua posição correta
-            // PREENCHA A LÓGICA DE INSERÇÃO AQUI
-            
-        }
-
-        return arr;
+        Console.WriteLine("\nLista Ordenada 2 (Crescente): ");
+        ImprimirArray(lista2); // Saída esperada: 1, 4, 4, 9, 15, 23, 77
     }
 }
-3. Complete a lógica dentro do método InsertionSort:
+2. Modifiquem a função e apliquem conceitos de otimização (isAnyChange):
 
-A. Implementação do Loop Interno (Deslocamento)
-O loop interno (while (j >= 0 && arr[j] > key)) deve:
+Desafio 1: Ordenação Decrescente
+Modifique a função BubbleSort para ordenar o array em ordem decrescente (do maior para o menor).
 
-Mover o elemento arr[j] uma posição para a direita (arr[j + 1] = arr[j]).
+Dica: Apenas uma linha de código precisa ser alterada dentro do if. Mude a condição de comparação!
 
-Importante: Incrementar a variável deslocamentos a cada vez que o elemento for movido.
+Desafio 2: Bubble Sort Otimizado
+O Bubble Sort original continua fazendo passagens mesmo que o array já esteja totalmente ordenado. Para otimizar, use uma variável booleana (trocaRealizada) para verificar se houve alguma troca em uma passagem.
 
-Decrementar o índice j para checar o próximo elemento à esquerda.
+Crie uma variável booleana, por exemplo, trocaRealizada, e defina-a como false no início do loop interno.
 
-B. Implementação da Inserção
-Após o loop while terminar, o índice j + 1 será a posição correta onde o valor de key (o elemento original arr[i]) deve ser inserido.
+Defina trocaRealizada = true sempre que ocorrer uma troca.
 
-C. Análise
-Após rodar o programa com o array de teste { 12, 11, 13, 5, 6 }, responda:
+Se o loop interno terminar e trocaRealizada for false, isso significa que o array está ordenado, e você pode sair do loop externo (usando break).
 
-Qual é o resultado final do Array Ordenado?
+Desafio 3: Contagem de Operações
+Modifique a função para contar e exibir:
 
-Qual é o Total de Deslocamentos Realizados?
-
-Se o array inicial fosse { 1, 2, 3, 4, 5 } (já ordenado), quantos deslocamentos o seu programa faria? Por quê?
+O número total de comparações realizadas.
+O número total de trocas (swaps) realizadas.
