@@ -83,3 +83,80 @@ Qual é o resultado final do Array Ordenado?
 Qual é o Total de Trocas Realizadas?
 
 Se o array inicial fosse { 1, 2, 3, 4, 5 } (já ordenado), quantas trocas o seu programa faria? Por quê?
+
+----------------------------------------------------------RESPOSTA-------------------------------------------------------------------------------
+using System;
+
+public class SelectionSortAtividade
+{
+    public static void Main(string[] args)
+    {
+        // Criação do array inicial
+        int[] meuArray = { 64, 25, 12, 22, 11 };
+
+        // Variável que contará quantas trocas foram realizadas
+        int trocas = 0;
+
+        // Exibe o array original antes da ordenação
+        Console.WriteLine("Array Original: " + string.Join(", ", meuArray));
+
+        // Chamada da função SelectionSort e captura do número de trocas
+        meuArray = SelectionSort(meuArray, out trocas);
+
+        // Exibe o array após a ordenação
+        Console.WriteLine("Array Ordenado: " + string.Join(", ", meuArray));
+
+        // Mostra o total de trocas realizadas durante o processo
+        Console.WriteLine($"Total de Trocas Realizadas: {trocas}");
+    }
+
+    /// <summary>
+    /// Ordena um array de inteiros usando o algoritmo Selection Sort.
+    /// </summary>
+    /// <param name="arr">O array a ser ordenado.</param>
+    /// <param name="trocas">Variável para retornar o número total de trocas.</param>
+    /// <returns>O array ordenado.</returns>
+    public static int[] SelectionSort(int[] arr, out int trocas)
+    {
+        // Obtém o tamanho do array
+        int n = arr.Length;
+
+        // Inicializa o contador de trocas
+        trocas = 0;
+
+        // Loop externo: percorre o array até o penúltimo elemento
+        for (int i = 0; i < n - 1; i++)
+        {
+            // Assume que o menor elemento está na posição atual (i)
+            int min_idx = i;
+
+            // Loop interno: procura o menor elemento no restante do array
+            for (int j = i + 1; j < n; j++)
+            {
+                // Se o elemento atual for menor que o menor encontrado até agora
+                if (arr[j] < arr[min_idx])
+                {
+                    // Atualiza o índice do menor elemento
+                    min_idx = j;
+                }
+            }
+
+            // Após o loop interno, min_idx contém o índice do menor elemento encontrado
+            // Verifica se o menor elemento está fora de posição
+            if (min_idx != i)
+            {
+                // Realiza a troca dos elementos
+                int temp = arr[i];
+                arr[i] = arr[min_idx];
+                arr[min_idx] = temp;
+
+                // Incrementa o contador de trocas
+                trocas++;
+            }
+        }
+
+        // Retorna o array já ordenado
+        return arr;
+    }
+}
+
