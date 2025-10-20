@@ -11,8 +11,7 @@ Armazene esses números em um array.
 Use o Insertion Sort para ordená-los em ordem crescente.
 
 Mostre o array antes e depois da ordenação.
-
--------------------------------------------RESPOSTA---------------------------------------------------
+-------------------------------------------RESPOSTA ATIVIDADE 1---------------------------------------------------
 using System;
 
 class Program
@@ -71,17 +70,7 @@ class Program
         Console.WriteLine(string.Join(" ", array));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Atividade 2 — Contar o número de trocas
 
 Adapte o algoritmo do Insertion Sort para:
@@ -91,11 +80,86 @@ Contar quantas trocas foram realizadas durante a ordenação.
 Exibir esse total ao final da execução.
 
 Desafio extra: Mostre também o número de comparações feitas.
+-------------------------------------------RESPOSTA ATIVIDADE 2---------------------------------------------------
+using System;
 
+class Program
+{
+    static void Main()
+    {
+        // Solicita ao usuário que digite 5 números inteiros
+        int[] numeros = new int[5];
+        Console.WriteLine("Digite 5 números inteiros:");
 
+        for (int i = 0; i < numeros.Length; i++)
+        {
+            Console.Write($"Número {i + 1}: ");
+            numeros[i] = int.Parse(Console.ReadLine());
+        }
 
+        // Exibe o array original
+        Console.WriteLine("\nArray original:");
+        ExibirArray(numeros);
 
+        // Chama a função de ordenação Insertion Sort que também conta trocas e comparações
+        InsertionSortContando(numeros);
 
+        // Exibe o array ordenado
+        Console.WriteLine("\nArray ordenado:");
+        ExibirArray(numeros);
+    }
+
+    static void InsertionSortContando(int[] array)
+    {
+        int trocas = 0;        // Contador de trocas (quando um valor é movido)
+        int comparacoes = 0;   // Contador de comparações entre elementos
+
+        // Inicia o algoritmo a partir do segundo elemento
+        for (int i = 1; i < array.Length; i++)
+        {
+            int chave = array[i]; // Armazena o valor atual que será inserido na posição correta
+            int j = i - 1;
+
+            // Enquanto o valor anterior for maior que a chave, desloca os elementos para a direita
+            while (j >= 0)
+            {
+                comparacoes++; // Cada verificação de condição é uma comparação
+
+                if (array[j] > chave)
+                {
+                    array[j + 1] = array[j]; // Move o elemento maior para a direita
+                    trocas++; // Conta como uma troca (ou deslocamento)
+                    j--;
+                }
+                else
+                {
+                    // Se a condição falhar, significa que a chave está na posição correta
+                    break;
+                }
+            }
+
+            // Insere a chave na posição correta
+            array[j + 1] = chave;
+
+            // Não contamos essa atribuição como troca, pois é a inserção final da chave
+        }
+
+        // Exibe os totais ao final
+        Console.WriteLine($"\nTotal de trocas: {trocas}");
+        Console.WriteLine($"Total de comparações: {comparacoes}");
+    }
+
+    // Função auxiliar para exibir o conteúdo do array
+    static void ExibirArray(int[] array)
+    {
+        foreach (int num in array)
+        {
+            Console.Write(num + " ");
+        }
+        Console.WriteLine();
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Atividade 3 — Ordenar nomes
 
 Em vez de números, use um array de strings com nomes de pessoas (ex: "Maria", "João", "Ana").
@@ -103,5 +167,61 @@ Em vez de números, use um array de strings com nomes de pessoas (ex: "Maria", "
 Ordene-os alfabeticamente com Insertion Sort.
 
 Mostre o resultado.
+-------------------------------------------RESPOSTA ATIVIDADE 3---------------------------------------------------
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Cria um array de strings com nomes
+        string[] nomes = { "Maria", "João", "Ana", "Carlos", "Beatriz" };
+
+        // Exibe o array original antes da ordenação
+        Console.WriteLine("Array original:");
+        ExibirArray(nomes);
+
+        // Chama a função de ordenação
+        InsertionSortStrings(nomes);
+
+        // Exibe o array após a ordenação
+        Console.WriteLine("\nArray ordenado alfabeticamente:");
+        ExibirArray(nomes);
+    }
+
+    static void InsertionSortStrings(string[] array)
+    {
+        // O algoritmo é o mesmo do Insertion Sort para números,
+        // mas usamos CompareTo() para comparar textos (ordem alfabética)
+        for (int i = 1; i < array.Length; i++)
+        {
+            string chave = array[i]; // Armazena o nome atual que será inserido na posição correta
+            int j = i - 1;
+
+            // Compara os nomes em ordem alfabética
+            // CompareTo() retorna:
+            //  - valor < 0 → se o primeiro for "menor" (vem antes)
+            //  - valor > 0 → se o primeiro for "maior" (vem depois)
+            while (j >= 0 && array[j].CompareTo(chave) > 0)
+            {
+                array[j + 1] = array[j]; // Move o nome maior uma posição à frente
+                j--;
+            }
+
+            // Insere o nome (chave) na posição correta
+            array[j + 1] = chave;
+        }
+    }
+
+    // Função auxiliar para exibir o conteúdo do array
+    static void ExibirArray(string[] array)
+    {
+        foreach (string nome in array)
+        {
+            Console.Write(nome + " ");
+        }
+        Console.WriteLine();
+    }
+}
 
 
