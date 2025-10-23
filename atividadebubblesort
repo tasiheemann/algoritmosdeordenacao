@@ -172,3 +172,67 @@ public class AlgoritmosDeOrdenacao
         ImprimirArray(lista2);
     }
 }
+---------------------------------------------------------------EXEMPLO ORDENAÇÃO DE STRING-----------------------------------
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Vetor de strings
+        string[] nomes = { "Maria", "João", "Ana", "Pedro", "Beatriz" };
+
+        Console.WriteLine("Antes da ordenação:");
+        MostrarArray(nomes);
+
+        // Chama o Bubble Sort
+        BubbleSort(nomes);
+
+        Console.WriteLine("\nDepois da ordenação (ordem alfabética):");
+        MostrarArray(nomes);
+    }
+
+    // Função Bubble Sort adaptada para strings
+    static void BubbleSort(string[] array)
+    {
+        int n = array.Length;
+        bool trocou;
+
+        // Laço externo percorre o vetor várias vezes
+        for (int i = 0; i < n - 1; i++)
+        {
+            trocou = false; // verifica se houve troca na passada atual
+
+            // Laço interno faz as comparações adjacentes
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                // CompareTo retorna:
+                // < 0 se array[j] < array[j + 1]
+                // = 0 se forem iguais
+                // > 0 se array[j] > array[j + 1]
+                if (array[j].CompareTo(array[j + 1]) > 0)
+                {
+                    // Troca os elementos
+                    string temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                    trocou = true;
+                }
+            }
+
+            // Se nenhuma troca ocorreu, já está ordenado
+            if (!trocou)
+                break;
+        }
+    }
+
+    // Função auxiliar para imprimir o vetor
+    static void MostrarArray(string[] array)
+    {
+        foreach (string nome in array)
+        {
+            Console.Write(nome + " ");
+        }
+        Console.WriteLine();
+    }
+}
