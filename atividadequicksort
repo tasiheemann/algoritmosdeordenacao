@@ -30,8 +30,6 @@ static void QuickSort(int[] array, int inicio, int fim)
         QuickSort(array, p + 1, fim);
     }
 }
-csharp
-Copiar código
 // Função que faz a "partição" do array
 // Coloca o pivô na posição correta e garante que:
 // - à esquerda do pivô, ficam elementos menores ou iguais
